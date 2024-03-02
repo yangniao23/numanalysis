@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>数値解析レポートNo.2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax:{inlineMath: [['$', '$']]},
+      messageStyle: "none"
+    });
+</script>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+    <style>
+    hr {
+      opacity: 0;
+      break-after: page;
+    }
+  </style>
+<style>
+    .cover-title {
+  text-align: center;
+  font-size: 4em;
+}
+
+.subtitle {
+  margin-top: 3em;
+  font-size: 3em;
+  text-align: center;
+}
+
+.cover-container {
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+  margin-top: 50%;
+  margin-left: 20px;
+  margin-right: 20px;
+  page-break-after: always;
+  text-align: center;
+  font-size: 2em;
+}
+.cover-innner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.title-wrapper {
+  width: 100%;
+}
+.title-wrapper h1 {
+  font-size: 60px;
+}
+
+.create-at-wrapper {
+  font-weight: 500;
+}
+
+.company-name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: auto;
+}
+.company-name-wrapper .company-logo-img {
+  max-width: 80px;
+}
+.company-name-wrapper .compay-name {
+  font-weight: 600;
+  padding-right: 80px;
+}
+</style>
+<div class="cover-container">
+    <div class="cover-innner">
+    <div class="title-wrapper"><h1 class="cover-title">数値解析レポートNo.2</h1></div>
+        <div class="create-at-wrapper"><span>Ec4-39 湯嶋 皓騎
+</span></div>
+    </div>
+</div>
+<!-- # サンプル資料 表紙 -->
+<!-- # 改ページ -->
+<div style="page-break-before:always"></div>
+<h2 id="%E5%AE%9F%E6%96%BD%E7%92%B0%E5%A2%83">実施環境</h2>
+<ul>
+<li>CPU: Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz</li>
+<li>OS: Arch Linux (WSL2 5.15.123.1-microsoft-standard-WSL2)</li>
+<li>コンパイラ: GNU Compiler Collection (GCC) 13.2.1 20230801</li>
+<li>Cライブラリ: GNU C Library (GNU libc) stable release version 2.38.</li>
+</ul>
+<h2 id="11-amathbfxmathbfb-%E3%81%AE%E8%A7%A3-mathbfx-%E3%82%92%E6%B1%82%E3%82%81%E3%82%8B">1.1. $A\mathbf{x}=\mathbf{b}$ の解 $\mathbf{x}$ を求める</h2>
+<p>$$<br>
+\begin{align*}<br>
+A = \begin{pmatrix}<br>
+2 &amp; 1  &amp; 1 \\<br>
+1 &amp; -1 &amp; 5 \\<br>
+1 &amp; 2  &amp; -4 \\<br>
+\end{pmatrix}, &amp;&amp; \mathbf{b} = \begin{pmatrix}<br>
+2 \\<br>
+-2 \\<br>
+4<br>
+\end{pmatrix}<br>
+\end{align*}<br>
+$$<br>
+の解を求める．</p>
+<h3 id="111-%E8%A7%A3%E6%9E%90%E8%A7%A3%E3%81%AE%E5%B0%8E%E5%87%BA">1.1.1. 解析解の導出</h3>
+<p>連立方程式の解が存在するならば，$\mathrm{rank}A = \mathrm{rank}(A,\mathbf{b})$ である．<br>
+また，一意の解が存在するならば，$\mathrm{rank}A = \mathrm{rank}(A,\mathbf{b}) = n$ (ただし $n$ は行列 $A$ の列数) である．</p>
+<p>$$<br>
+\begin{align}<br>
+A &amp;\Rightarrow \begin{pmatrix}<br>
+1 &amp; -1 &amp; 5 \\<br>
+1 &amp; 2 &amp; -4 \\<br>
+2 &amp; 1 &amp; 1 \\<br>
+\end{pmatrix}<br>
+\Rightarrow<br>
+\begin{pmatrix}<br>
+1 &amp; -1 &amp; 5 \\<br>
+0 &amp; 3 &amp; -9 \\<br>
+0 &amp; 3 &amp; -9 \\<br>
+\end{pmatrix}<br>
+\Rightarrow<br>
+\begin{pmatrix}<br>
+1 &amp; -1 &amp; 5 \\<br>
+0 &amp; 1 &amp; -3 \\<br>
+0 &amp; 0 &amp; 0 \\<br>
+\end{pmatrix}<br>
+\Rightarrow<br>
+\begin{pmatrix}<br>
+1 &amp; 0 &amp; 2 \\<br>
+0 &amp; 1 &amp; -3 \\<br>
+0 &amp; 0 &amp; 0 \\<br>
+\end{pmatrix} \\<br>
+(A, \mathbf{b}) &amp;\Rightarrow \begin{pmatrix}<br>
+1 &amp; -1 &amp; 5 &amp; -2\\<br>
+1 &amp; 2 &amp; -4 &amp; 4\\<br>
+2 &amp; 1 &amp; 1  &amp; 2\\<br>
+\end{pmatrix} \Rightarrow<br>
+\begin{pmatrix}<br>
+1 &amp; -1 &amp; 5 &amp; -2\\<br>
+0 &amp; 3 &amp; -9 &amp; 6\\<br>
+0 &amp; 3 &amp; -9 &amp; 6\\<br>
+\end{pmatrix}<br>
+\Rightarrow<br>
+\begin{pmatrix}<br>
+1 &amp; 0 &amp; 2  &amp; 0\\<br>
+0 &amp; 1 &amp; -3 &amp; 2\\<br>
+0 &amp; 0 &amp; 0 &amp; 0\\<br>
+\end{pmatrix}<br>
+\end{align}<br>
+$$</p>
+<p>今回 $n=3$ だから，$\mathrm{rank}A=\mathrm{rank}(A,\mathbf{b}) = 2, 2 \neq 3$である．<br>
+つまり，この方程式は$3 - 2 = 1$ 個の任意変数を有する非自明解を持つ．</p>
+<p>ここで，任意変数 $t \in \mathbb{R}$ を用いて<br>
+$$<br>
+A = \begin{pmatrix}<br>
+1 &amp; 0 &amp; 2t \\<br>
+0 &amp; 1 &amp; -3t \\<br>
+0 &amp; 0 &amp; 0 \\<br>
+\end{pmatrix}<br>
+$$<br>
+とおくと，この方程式の解 $\mathbf{x}$ は<br>
+$$<br>
+\mathbf{x} = \begin{pmatrix}<br>
+-2t \\<br>
+3t + 2 \\<br>
+t \\<br>
+\end{pmatrix}<br>
+$$<br>
+である．</p>
+<h3 id="112-%E9%80%9A%E5%B8%B8%E9%80%9A%E3%82%8A%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%A7%E3%81%AF%E6%B1%82%E3%82%81%E3%82%89%E3%82%8C%E3%81%AA%E3%81%84%E7%90%86%E7%94%B1">1.1.2. 通常通りのプログラムでは求められない理由</h3>
+<p>課題4から課題6で作成したプログラムの動作を考える．</p>
+<p>課題4は前進消去・後退代入を用いて解を求めている．式 (2) からわかるように，後退代入で<br>
+係数行列の3行3列成分で割る動作を行うことになり，これはゼロ除算だから未定義動作を引き起こし，<br>
+正しい値にならない．</p>
+<p>課題5はLU分解を用いて解を求めている．これも同様に後退代入を行うときにゼロ除算を行うため，未定義動作<br>
+を引き起こし，正しく値を求めることができない．</p>
+<p>課題6は反復計算を用いて解を求めている．この方程式は一つの解に収束しないので，初期値とループ回数によって出力が変化する．<br>
+今回の場合ヤコビ法では解は発散し，ガウス・サイデル法では収束した．</p>
+<p>初期値を $0$ に設定したときは $\mathbf{x} = \begin{pmatrix}<br>
+-4 \\<br>
+8 \\<br>
+2 \\<br>
+\end{pmatrix}<br>
+$に，$1$ に設定したときは $\mathbf{x} = \begin{pmatrix}<br>
+-10 \\<br>
+17 \\<br>
+5 \\<br>
+\end{pmatrix}<br>
+$に収束した．これは正しい値であるが，$\mathbf{x}$ が一意の解を持つように見えてしまうので不適切である．</p>
+<p>以上のことから，課題で作成したプログラムでは非自明な解を持つ方程式を解くことができないことがわかる．</p>
+<h3 id="113-%E5%AF%BE%E7%AD%96%E6%96%B9%E6%B3%95">1.1.3. 対策方法</h3>
+<p>課題4のプログラムについて対策方法を考える．<br>
+前進消去が完了した後に，成分が全て0の行が存在しないか確認する．もし存在したら一番下へ移動させる．<br>
+そして，零成分の行の解を1.0とすると，$t=1.0$としたときの解が求まる．</p>
+<p>コードを示す．</p>
+<pre class="hljs"><code><div>#define EPS 1e-10 // 十分に小さい数
+
+int i, j;
+double **matrix;
+double *vector, *result;
+
+// 前進消去を行う
+
+for (i=0; i&lt;row-1; i++) {
+  for (j=0; i&lt;col; j++) {
+    if (matrix[i][j] &gt; EPS) continue;
+    
+    // 行の成分が全て0
+    swap_matrix(matrix, i, row-1);
+    swap_vector(vector, i, row-1);
+  }
+}
+
+for (i = row - 1; i &gt;= 0; i--) {
+  double row_value = vector[i];
+
+  for (j = col - 1; j &gt; i; j--) {
+    row_value -= matrix[i][j] * result[j];
+  }
+  if (matrix[i][i] &lt; EPS)
+    result[i] = 1.0;
+  else
+    result[i] = row_value / matrix[i][i];
+}
+</div></code></pre>
+<p>result が $t=1.0$ としたときの解になる．</p>
+<h2 id="12-%E9%80%86%E8%A1%8C%E5%88%97%E3%82%92%E6%B1%82%E3%82%81%E3%82%8B">1.2. 逆行列を求める</h2>
+<p>行列 $C = \begin{pmatrix}<br>
+2 &amp; -1 &amp; 5 \\<br>
+-4 &amp; 2 &amp; 1 \\<br>
+8 &amp; 2 &amp; -1 \\<br>
+\end{pmatrix}$ の逆行列を求める．</p>
+<p>行列 $C$ に対して LU 分解を行って得られた行列 $L, U, P$ を用いて $C^{-1}$ を求める．<br>
+$C^{-1} = U^{-1}L^{-1}P$ であり, $LL^{-1}=I, UU^{-1}=I$ (ただし $I$ は単位行列)だから，<br>
+$L^{-1}$ と $U^{-1}$ を求めればよい．</p>
+<p>ここで，<br>
+$$<br>
+\begin{align*}<br>
+U &amp;= (u_{ij}),&amp; U^{-1} = (u'_{ij}) \\<br>
+L &amp;= (l_{ij}),&amp; L^{-1} = (l'_{ij})<br>
+\end{align*}<br>
+$$<br>
+とおく．</p>
+<h3 id="121-u-%E8%A1%8C%E5%88%97%E3%81%AE%E9%80%86%E8%A1%8C%E5%88%97">1.2.1. $U$ 行列の逆行列</h3>
+<p>$<br>
+UU^{-1} = I$ を解く．</p>
+<p>$$<br>
+UU^{-1} = \begin{pmatrix}<br>
+u_{11}u'_{11} &amp; u_{11}u'_{12} + u_{12}u'_{22} &amp; u_{11}u'_{13} + u_{12}u'_{23} + u_{13}u'_{33} \\<br>
+0 &amp; u_{22}u'_{22} &amp; u_{22}u'_{23} + u_{23}u'_{33} \\<br>
+0 &amp; 0 &amp; u_{33}u'_{33} \\<br>
+\end{pmatrix}<br>
+$$</p>
+<p>だから，</p>
+<p>$$<br>
+\begin{pmatrix}<br>
+u_{11}u'_{11} &amp; u_{11}u'_{12} + u_{12}u'_{22} &amp; u_{11}u'_{13} + u_{12}u'_{23} + u_{13}u'_{33} \\<br>
+0 &amp; u_{22}u'_{22} &amp; u_{22}u'_{23} + u_{23}u'_{33} \\<br>
+0 &amp; 0 &amp; u_{33}u'_{33}<br>
+\end{pmatrix}<br>
+= \begin{pmatrix}<br>
+1 &amp; 0 &amp; 0 \\<br>
+0 &amp; 1 &amp; 0 \\<br>
+0 &amp; 0 &amp; 1 \\<br>
+\end{pmatrix}<br>
+$$</p>
+<p>である．対角成分に注目すると</p>
+<p>$$<br>
+u'_{ii} = \frac{1}{u_{ii}}<br>
+$$</p>
+<p>だとわかる．これを踏まえて対角成分以外の値を考えると， $u'_{12}$ は，</p>
+<p>$$<br>
+\begin{align*}<br>
+u_{11}u'_{12} + u_{12}u'_{22} &amp;= 0 \\<br>
+u'_{12} &amp;= -\frac{u_{12}}{u_{11}u_{22}} = -u_{12}u'_{11}u'_{22}<br>
+\end{align*}<br>
+$$<br>
+同様に，<br>
+<p>
+$$<br>
+\begin{align*}<br>
+u'_{23} &amp;= -u_{23}u'_{22}u'_{33} \\<br>
+u'_{13} &amp;= -u'_{11}(u_{12}u'_{23} + u_{13}u'_{33}) = u'_{11}u'_{33}(u_{12}u_{23}u'_{22} - u_{13})\end{align*}<br>
+$$<br>
+である．したがって，逆行列 $U^{-1}$ は<br>
+$$<br>
+U^{-1} = \begin{pmatrix}<br>
+u'_{11} &amp; -u_{12}u'_{11}u'_{22} &amp; u'_{11}u'_{33}(u_{12}u_{23}u'_{22} - u_{13}) \\<br>
+0 &amp; u'_{22} &amp; -u_{23}u'_{22}u'_{33} \\<br>
+0 &amp; 0 &amp; u'_{33}<br>
+\end{pmatrix}<br>
+$$<br>
+ただし $u'_{ii} = u_{ii}^{-1}$ である．</p>
+<h3 id="122-l-%E8%A1%8C%E5%88%97%E3%81%AE%E9%80%86%E8%A1%8C%E5%88%97">1.2.2. $L$ 行列の逆行列</h3>
+<p>同様に $LL^{-1} = I$ を解く．</p>
+<p>$$<br>
+LL^{-1} = \begin{pmatrix}<br>
+l_{11}l'_{11} &amp; 0 &amp; 0 \\<br>
+l_{21}l'_{11} + l_{22}l'_{21} &amp; l_{22}l'_{22} &amp; 0 \\<br>
+l_{31}l'_{11} + l_{32}l'_{21} + l_{33}l'_{31} &amp; l_{32}l'_{22} + l_{33}l'_{32} &amp; l_{33}l'_{33}<br>
+\end{pmatrix} = I<br>
+$$<br>
+1.2.1. と同じように成分を求めると，<br>
+$$<br>
+L^{-1} = \begin{pmatrix}<br>
+l'_{11} &amp; 0 &amp; 0 \\<br>
+-l_{21}l'_{11}l'_{22} &amp; l'_{22} &amp; 0 \\<br>
+l'_{11}l'_{33}(l_{21}l_{32}l'_{22} - l_{31}) &amp; -l_{32}l'_{22}l'_{33} &amp; l'_{33}<br>
+\end{pmatrix}<br>
+$$<br>
+ただし $l'_{ii} = l_{ii}^{-1}$ である．</p>
+<h3 id="123-c-%E3%81%AE%E9%80%86%E8%A1%8C%E5%88%97">1.2.3. $C$ の逆行列</h3>
+<p>$C^{-1} = U^{-1}L^{-1}P$ を計算する．課題5のプログラムを用いて LU 分解を行った結果，</p>
+<p>$$<br>
+\begin{align}<br>
+L = \begin{pmatrix}<br>
+1 &amp; 0 &amp; 0 \\<br>
+-0.5 &amp; 1 &amp; 0 \\<br>
+0.25 &amp; -0.5 &amp; 1\\<br>
+\end{pmatrix} &amp;&amp;<br>
+U = \begin{pmatrix}<br>
+8 &amp; 2 &amp; -1 \\<br>
+0 &amp; 3 &amp; 0.5 \\<br>
+0 &amp; 0 &amp; 5.5 \\<br>
+\end{pmatrix} &amp;&amp;<br>
+P = \begin{pmatrix}<br>
+0 &amp; 0 &amp; 1 \\<br>
+0 &amp; 1 &amp; 0 \\<br>
+1 &amp; 0 &amp; 0 \\<br>
+\end{pmatrix}<br>
+\end{align}<br>
+$$<br>
+であった．ここで $U^{-1}, L^{-1}$ は</p>
+<p>$$<br>
+\begin{align*}<br>
+U^{-1} = \begin{pmatrix}<br>
+0.1250 &amp; -0.0833 &amp; 0.0303 \\<br>
+0 &amp; 0.3333 &amp; -0.0303 \\<br>
+0 &amp; 0 &amp; 0.1818 \\<br>
+\end{pmatrix} &amp;,&amp;<br>
+L^{-1} = \begin{pmatrix}<br>
+1 &amp; 0 &amp; 0 \\<br>
+0.5 &amp; 1 &amp; 0 \\<br>
+0 &amp; 0.5 &amp; 1 \\<br>
+\end{pmatrix}<br>
+\end{align*}<br>
+$$</p>
+<p>と計算できる．これより，<br>
+$$<br>
+C^{-1} = \begin{pmatrix}<br>
+0.030303 &amp; -0.0681818 &amp; 0.0833333 \\<br>
+-0.030303 &amp; 0.318182 &amp; 0.166667 \\<br>
+0.181818 &amp; 0.0909091 &amp; 0 \\<br>
+\end{pmatrix}<br>
+$$</p>
+<p>と求まった．</p>
+<h2 id="2-%E3%81%AF%E3%81%95%E3%81%BF%E3%81%86%E3%81%A1%E6%B3%95">2. はさみうち法</h2>
+<h3 id="21-%E3%81%AF%E3%81%95%E3%81%BF%E3%81%86%E3%81%A1%E6%B3%95%E3%81%A8%E3%81%AF">2.1. はさみうち法とは</h3>
+<p>はさみうち法は関数の根を調べるアルゴリズムのひとつで，二分法と似たものである．</p>
+<p>二分法では2点の中点を考えていたが，はさみうち法は2点を通る直線の値が0になる点を考えるものである．<br>
+二分法は1ステップごとに幅が半分になっていく一方，はさみうち法は関数の接点に近い直線を引くことができれば<br>
+少ないステップ数で根を求めることができる．</p>
+<h3 id="22-%E3%81%AF%E3%81%95%E3%81%BF%E3%81%86%E3%81%A1%E6%B3%95%E3%81%AE%E8%A9%95%E4%BE%A1">2.2. はさみうち法の評価</h3>
+<p>課題3を用いて評価を行う．課題3は関数 $f(x)$ の範囲 $(1:3)$ にある根を求める問題である．関数 $f(x)$の定義は以下の通りである．</p>
+<p>$$<br>
+f(x) = x^4 - 3x^2 + 5x - 9<br>
+$$</p>
+<p>はさみうち法で根を求める関数を示す．ただし，<code>FUNC_D2D</code> は <code>double</code> 型の変数を1つ引数に持ち，<code>double</code> 型の値を返す関数ポインタである． <code>SQUEEZE_METHOD</code> は列挙型のメンバである．</p>
+<pre class="hljs"><code><div>void squeeze_method(FUNC_D2D f, double x_min, double x_max) {
+    int loop_count;
+
+    // The loop starts at 1 and runs LOOP_COUNT_MAX times.
+    for (loop_count = 1; (loop_count &lt;= LOOP_COUNT_MAX); loop_count++) {
+        double poi =
+            (x_min * f(x_max) - x_max * f(x_min)) / (f(x_max) - f(x_min));
+        print_current_result(SQUEEZE_METHOD, loop_count, poi);
+
+        if (f(poi) &gt; 0)
+            x_max = poi;
+        else
+            x_min = poi;
+    }
+}
+</div></code></pre>
+<pre class="hljs"><code><div>remain loop_count: 9, bisection method: 2.000000000, squeeze method: 1.181818182
+remain loop_count: 8, bisection method: 1.500000000, squeeze method: 1.330162049
+remain loop_count: 7, bisection method: 1.750000000, squeeze method: 1.447303924
+remain loop_count: 6, bisection method: 1.875000000, squeeze method: 1.536568968
+remain loop_count: 5, bisection method: 1.812500000, squeeze method: 1.602390729
+remain loop_count: 4, bisection method: 1.781250000, squeeze method: 1.649612800
+remain loop_count: 3, bisection method: 1.765625000, squeeze method: 1.682775076
+remain loop_count: 2, bisection method: 1.757812500, squeeze method: 1.705697489
+remain loop_count: 1, bisection method: 1.753906250, squeeze method: 1.721362780
+remain loop_count: 0, bisection method: 1.751953125, squeeze method: 1.731983564
+</div></code></pre>
+<p>今回のケースでははさみうち法の方が二分法よりも収束が遅かった．</p>
+<h3 id="3-%E3%83%A4%E3%82%B3%E3%83%93%E6%B3%95%E3%82%84%E3%82%AC%E3%82%A6%E3%82%B9%E3%83%BB%E3%82%B5%E3%82%A4%E3%83%87%E3%83%AB%E6%B3%95%E3%81%8C%E5%8F%8E%E6%9D%9F%E3%81%97%E3%81%AA%E3%81%84%E6%9D%A1%E4%BB%B6">3. ヤコビ法やガウス・サイデル法が収束しない条件</h3>
+<p>線形方程式 $A\mathbf{x} = \mathbf{b}$ を反復的解法で解く場合を考える．<br>
+ここで，$A = D + L + U$ を満たすような対角行列 $D$ と下三角行列 $L$，上三角行列 $U$を用いると， $k+1$ ステップ目でのヤコビ法の漸化式は以下のように書き下せる．ただし $\mathbf{x}^{(n)}$ は $n$ ステップ目の $\mathbf{x}$ の値を意味する．</p>
+<p>$$<br>
+\mathbf{x}^{(k+1)} = D^{-1}(\mathbf{b} - (L+U)\mathbf{x}^{(k)})<br>
+$$</p>
+<p>ここで $H = -D^{-1}(L+U), \mathbf{c}=D^{-1}\mathbf{b}$ とおくと，</p>
+<p>$$<br>
+\mathbf{x}^{(k+1)} = H\mathbf{x}^{(k)} + \mathbf{c}<br>
+$$</p>
+<p>と書き下せる．解が $k=N$ で収束するならば $\mathbf{x}^{(N+1)} = \mathbf{x}^{(N)}$ とみなせるから，</p>
+<p>$$<br>
+\begin{align*}<br>
+\mathbf{x}^{(k+1)} - H\mathbf{x}^{(k)} &amp;= \mathbf{x}^{(N)} - H\mathbf{x}^{(N)} \\<br>
+\mathbf{x}^{(k)} - \mathbf{x}^{(k+1)} &amp;= H(\mathbf{x}^{(k)} - \mathbf{x}^{(N)})<br>
+\end{align*}<br>
+$$</p>
+<p>である．この式は $k+1$ ステップでの誤差は $k$ ステップの誤差を $H$ 倍したものであることを意味している．つまり，$||H|| &lt; 1$ ならば $\mathbf{x}$ は収束する．これは固有値の絶対値の最大値が1未満であることを意味する．</p>
+<p>しかしながら，一般の行列の最大固有値を解析的に求めることは困難である．そこで，$A$ が対角優位行列ならば固有値の絶対値は1よりも小さいことを利用すると，ヤコビ法は $A$ が対角優位行列ならば収束することがわかる．これを数式で表わすと，行列の大きさを $n$ としたとき，全ての $i = 1,2,3,\cdots n$ に対して<br>
+$$<br>
+a_{ii} &gt; \sum^n_{j=1,\ j \neq i} a_{ij}<br>
+$$</p>
+<p>を満たすならば収束すると言える．</p>
+<p>ガウス・サイデル法の漸化式は</p>
+<p>$$<br>
+\mathbf{x}^{(k+1)} = D^{-1}(\mathbf{b} - L\mathbf{x}^{(k+1)} - U\mathbf{x}^{(k)})<br>
+$$</p>
+<p>と書き下され，これはヤコビ法の収束条件，または $A$ が対称かつ正定値行列ならば収束する．<br>
+2つ目の条件を数式で書き表わすと，任意のベクトル $\mathbf{v}$ に対して</p>
+<p>$$<br>
+\mathbf{v}^TA\mathbf{v} &gt; 0<br>
+$$</p>
+<p>が成立するならば収束する．</p>
+<p>どちらも収束しない例として，<br>
+$$<br>
+A = \begin{pmatrix}<br>
+1 &amp; 2 &amp; 3 \\<br>
+3 &amp; 1 &amp; 2 \\<br>
+2 &amp; 3 &amp; 1 \\<br>
+\end{pmatrix}<br>
+$$</p>
+<p>がある．この行列は $1 &lt; 2 + 3$ だから対角優位ではない．また対称行列でもないので収束しないことが予想される．<br>
+実際にプログラムを動かすと発散することが確認できる．</p>
+<p>ただし，ここで挙げた収束条件は十分条件であり，1.1.2. のようにこれを満たさなくとも収束する場合が存在する．</p>
+<h2 id="3-%E5%B7%A5%E5%A4%AB%E3%81%97%E3%81%9F%E7%82%B9">3. 工夫した点</h2>
+<p>はさみうち法を試すプログラムを作成する上で，関数ポインタや列挙型を用いてあらかじめインターフェースを整備しておくことで処理の本質的な部分のみを分かりやすく記述できた．</p>
+<h2 id="4-%E8%A6%81%E6%9C%9B">4. 要望</h2>
+<p>特にありません．</p>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+    "[c]": {
+        "files.encoding": "shiftjis",
+    },
+    "files.associations": {
+        "stdlib.h": "c",
+        "random": "c",
+        "cstdlib": "c",
+        "nabasic.h": "c",
+        "vector": "c",
+        "chrono": "c",
+        "functional": "c",
+        "limits": "c"
+    }
+}

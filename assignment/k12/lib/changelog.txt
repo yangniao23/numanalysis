@@ -1,0 +1,27 @@
+# NABasic changelog
+
+## ver 2.3
+- 関数 `resizeMatrix` を追加
+- 関数 `resizeSquareMatrix` を追加
+
+# ver 2.2
+- 構造体 `SquareMatrix` を追加
+- 関数 `allocSquareMatrix` を追加
+- 関数 `solveSimultaneousEquation` を追加
+- 関数 `swapVectorElement` を追加
+
+## ver 2.1
+- 関数 `innerProduct` を追加
+- 関数 `vectorNorm` を追加
+- 関数 `normalizeVector` を追加
+- 関数 `matrixProduct,matrixProduct2 ` を追加
+- 関数 `matrixVectorProduct, matrixVectorProduct2` を追加
+- 関数 `showVector` を追加
+
+
+
+## ver 2.0
+- 構造体 `Matrix` と `Vector` を用いて再実装
+- エラーハンドリングの自由度を上げるために，メモリ確保失敗時の処理を変更
+    - 以前は `exit(1)` していたが、確保済のメモリを解放してから `NULL` を返すように変更
+- ヘッダファイルで不必要なインクルードを行わないように変更
